@@ -1,0 +1,76 @@
+git reset vs git revert in Git
+Both git reset and git revert are used to undo changes in Git, but they work differently.
+
+1. git reset (Move Branch Pointer, Discard Commits)
+Used to undo commits by moving the branch pointer backward.
+
+It alters commit history (not recommended for shared branches).
+
+Can modify or delete commits based on reset type.
+
+Types of git reset
+Reset Type	Effect on Commits	Effect on Working Directory
+git reset --soft <commit>	Moves branch pointer, keeps changes staged	Keeps changes staged (ready to commit again)
+git reset --mixed <commit> (default)	Moves branch pointer, unstages changes	Keeps changes in the working directory
+git reset --hard <commit>	Moves branch pointer, deletes all changes	Deletes all unstaged and staged changes
+Example Usage
+Undo last commit but keep changes staged
+
+
+
+
+git reset --soft HEAD~1
+Undo last commit and unstage changes
+
+
+
+
+git reset --mixed HEAD~1
+Undo last commit and remove all changes (dangerous!)
+
+
+
+
+git reset --hard HEAD~1
+
+
+
+2. git revert (Create a New Commit to Undo a Previous One)
+Used to safely undo changes in a commit without rewriting history.
+
+Creates a new commit that negates the previous commit.
+
+Recommended when working in a shared branch.
+
+Example Usage
+Revert last commit
+
+
+
+
+git revert HEAD
+This creates a new commit that undoes the previous commit.
+
+Safer because it preserves history.
+
+Revert a specific commit (e.g., abc1234 is the commit hash)
+
+
+
+
+git revert abc1234
+
+Key Differences
+
+Feature	                    git reset	                                git revert
+Alters commit history?	    ✅ Yes (dangerous for shared branches)	    ❌ No (safe for shared branches)
+Removes commits?	          ✅ Yes	                                    ❌ No (creates a new commit to undo changes)
+Safe for remote branches?	  ❌ No	                                      ✅ Yes
+Common Use Case	            Fix local mistakes before pushing	Undo      changes in a shared branch
+
+When to Use What?
+
+Use git reset for local changes before pushing (to fix mistakes in the last commit).
+
+Use git revert for shared branches to undo changes safely.
+
