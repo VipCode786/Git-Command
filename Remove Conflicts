@@ -1,0 +1,95 @@
+git fetch origin
+git merge master
+ 
+and 
+removed conflict markers (<<<<<<<, =======, >>>>>>>)
+
+
+Steps to Resolve Conflict:
+Identify the conflict markers (<<<<<<<, =======, >>>>>>>).
+
+Decide which version to keep (or modify it as needed).
+
+Delete the conflict markers and unwanted lines.
+
+Save the file.
+
+Stage the resolved file (git add).
+
+Commit the resolution (git commit).
+
+
+Example Scenario
+Let's say you and your teammate are working on the same file (file.txt).
+
+Initial State in master
+The master branch has this content in file.txt:
+
+kotlin
+Copy
+Edit
+Hello, this is the master branch.
+Your Changes in Your Branch (feature-branch)
+In your branch (feature-branch), you modified file.txt:
+
+kotlin
+Copy
+Edit
+Hello, this is the feature branch.
+Your Teammate’s Changes in master
+Meanwhile, your teammate also modified file.txt in master:
+
+kotlin
+Copy
+Edit
+Hello, this is the updated master branch.
+Now, when you try to merge master into feature-branch:
+
+sh
+Copy
+Edit
+git fetch origin
+git merge master
+Git Conflict
+Git detects a conflict in file.txt and marks it like this:
+
+kotlin
+Copy
+Edit
+<<<<<<< HEAD
+Hello, this is the feature branch.
+=======
+Hello, this is the updated master branch.
+>>>>>>> master
+Here:
+
+<<<<<<< HEAD → Your version from feature-branch
+
+======= → Separator
+
+>>>>>>> master → The version from master
+
+Resolving the Conflict
+Now, you need to manually edit file.txt to keep the correct version. If you decide to keep the updated master version, update the file like this:
+
+kotlin
+Copy
+Edit
+Hello, this is the updated master branch.
+Then, save the file and run:
+
+sh
+Copy
+Edit
+git add file.txt
+git commit -m "Resolved merge conflict in file.txt"
+This commits the resolved version.
+
+Final Steps
+Now, you can continue working or push your changes:
+
+sh
+Copy
+Edit
+git push origin feature-branch
+This ensures that your branch is now updated with the latest changes from master while keeping your work intact.
