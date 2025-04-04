@@ -1,0 +1,71 @@
+Git tracks changes in different states to help manage your project. The two main states are staged and unstaged changes.
+
+1. Unstaged Changes (Modified but Not Ready for Commit)
+These are changes you've made in your working directory, but Git is not tracking them yet for the next commit.
+
+Git sees them as modified files, but they are not included in the staging area.
+
+Example
+
+
+
+echo "Hello, World!" >> file.txt  # Modify a file
+git status
+Git Output
+rust
+
+
+Changes not staged for commit:
+  (use "git add <file>..." to update what will be committed)
+	modified:   file.txt
+Here, file.txt is modified but not yet staged.
+
+2. Staged Changes (Ready to be Committed)
+When you stage a file, Git marks it for inclusion in the next commit.
+
+Staging tells Git which changes should be included in the next commit.
+
+Staging a File
+
+
+
+git add file.txt
+git status
+Git Output
+vbnet
+
+
+Changes to be committed:
+  (use "git restore --staged <file>..." to unstage)
+	modified:   file.txt
+Now, file.txt is in the staging area, ready for commit.
+
+How Changes Move Between States
+State	Command to Move Forward	Command to Move Backward
+Untracked (new file)	git add <file> → Staged	rm <file> (delete the file)
+Unstaged (Modified but not staged)	git add <file> → Staged	git checkout -- <file> or git restore <file> (discard changes)
+Staged (Ready for commit)	git commit -m "Message" → Committed	git reset HEAD <file> (unstage file)
+3. Committed Changes
+Once staged changes are committed, they are permanently recorded in the Git repository.
+
+You can view past commits using:
+
+
+
+
+git log
+Summary
+State	Description	Example Commands
+Untracked	New file, not added to Git	git status shows it in red
+Unstaged	Modified but not added to staging	git add <file> to stage it
+Staged	Ready to be committed	git commit -m "Message"
+Example Workflow
+
+
+
+echo "Hello, Git!" > hello.txt    # Create a file
+git status                        # Untracked file
+git add hello.txt                  # Move to Staged
+git status                        # Now it's staged
+git commit -m "Add hello.txt"     # Move to Committed
+git status                        # Working directory is clean
